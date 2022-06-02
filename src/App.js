@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import './App.css';
 import Expenses from './components/Expenses/Expenses';
 import NewExpense from './components/NewExpense/NewExpense';
+import AddUser from './components/Users/AddUser';
+import UserList from './components/Users/UserList';
 
 const DUMMY_EXPENSES = [
   {
@@ -27,6 +29,7 @@ const DUMMY_EXPENSES = [
 
 const App = () => {
   const [expenses, setExpenses] = useState(DUMMY_EXPENSES);
+  const [users, setUsers] = useState([]);
 
   const handleAddExpense = (expense) => {
     setExpenses((prevExpenses) => {
@@ -34,8 +37,16 @@ const App = () => {
     });
   };
 
+  const handelAddUser = (user) => {
+    setUsers((prevUsers) => {
+      return [...prevUsers, user];
+    });
+  };
+
   return (
     <div className='App'>
+      <AddUser onAddUser={handelAddUser} />
+      <UserList users={users} />
       <NewExpense onAddExpense={handleAddExpense} />
       <Expenses items={expenses} />
     </div>
